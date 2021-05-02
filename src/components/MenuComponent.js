@@ -1,29 +1,46 @@
 import React from "react";
-import { CardImg, CardImgOverlay,Card, CardTitle } from "reactstrap";
+import { Link } from "react-router-dom";
+import { CardImg, CardImgOverlay,Card, CardTitle, Breadcrumb, BreadcrumbItem } from "reactstrap";
   
-const RenderMenu = ({dish,onClick})=>
+const RenderMenu = ({dish})=>
 {
     return(
-        <Card onClick={() => onClick(dish.id)}>
-            <CardImg src={dish.image} alt={dish.name}></CardImg>
-            <CardImgOverlay>
-                <CardTitle>{dish.name}</CardTitle>
-            </CardImgOverlay>
+        <Card>
+            <Link to = {`/menu/${dish.id}`} >
+                <CardImg src={dish.image} alt={dish.name}></CardImg>
+                <CardImgOverlay>
+                    <CardTitle>{dish.name}</CardTitle>
+                </CardImgOverlay>
+            </Link>
         </Card>
     )
 }
+
+
 
 const Menu = (props)=>
 {   
     const menu = props.dishes.map((dish) => {
         return(
             <div key={dish.id} className="col-12 col-md-5 m-1 ">
-                <RenderMenu dish = {dish} onClick = {props.onClick}></RenderMenu>
+                <RenderMenu dish = {dish}></RenderMenu>
             </div>
         );
     });
     return(
     <div className = "container">
+        <div className="row">
+            <Breadcrumb>
+                <BreadcrumbItem>
+                    <Link to="/home">Home</Link>
+                </BreadcrumbItem>
+                <BreadcrumbItem active>Menu</BreadcrumbItem>
+            </Breadcrumb>
+            <div className = "col-12">
+                Menu
+                <hr />
+            </div>
+        </div>
         <div className="row">
             {menu}
         </div>
