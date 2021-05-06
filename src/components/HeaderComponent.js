@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { Navbar, NavbarBrand,Jumbotron, NavItem, NavbarToggler,Nav,Collapse, ModalHeader,Button,Modal, ModalBody, Label, Input, Form, FormGroup } from 'reactstrap';
 import 'font-awesome/css/font-awesome.css';
+import { Control, LocalForm } from "react-redux-form";
 
 class Header extends Component{
     constructor(props){
@@ -27,10 +28,11 @@ class Header extends Component{
         });
     }
 
-    handleSubmit(event){
+    handleSubmit(values){
         this.toggleModal();
-        alert("username : "+this.username.value+ " password : "+this.password.value+ " Remember : "+this.remember.checked);
-        event.preventDefault();
+        alert(JSON.stringify(values));
+        alert("username : "+values.username+ " password : "+values.password+ " Remember : "+values.remember);
+        // event.preventDefault();
     }
     render(){
         return(
@@ -83,24 +85,23 @@ class Header extends Component{
                         Login
                     </ModalHeader>
                     <ModalBody>
-                        <Form onSubmit={this.handleSubmit}>
-                            <FormGroup>
-                                <Label htmlFor="username">UserName</Label>
-                                <Input type="text" name="username" innerRef={(input) => {this.username = input}} />
-                            </FormGroup>
-                            <FormGroup>
+                        <LocalForm onSubmit={ (values) => this.handleSubmit(values)}>
+                            <div className="form-group">
+                                <Label htmlFor=".username">UserName</Label>
+                                <Control.text model=".username" name="username" className="form-control" />
+                            </div>
+                            <div className="form-group">
                                 <Label htmlFor="password">Password</Label>
-                                <Input type="password" name="password" innerRef={(input) => {this.password = input}} />
-                                {this.password}
-                            </FormGroup>
-                            <FormGroup check>
+                                <Control.password model=".password" name="password" className="form-control" />
+                            </div>
+                            <div className="form-check">
                                 <Label check>
-                                    <Input type="checkbox" name="remember" innerRef={(input) => this.remember = input} />{' '}
+                                    <Control.checkbox name="remember"model=".remember" />{' '}
                                     Remember Me?
                                 </Label>
-                            </FormGroup>
+                            </div>
                             <Button type="submit" color="primary">Login</Button>
-                        </Form>
+                        </LocalForm>
                     </ModalBody>
                 </Modal>
             </React.Fragment>
