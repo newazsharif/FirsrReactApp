@@ -21,13 +21,12 @@ class Contact extends Component{
                 email: false,
             }
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
+        // this.handleSubmit = this.handleSubmit.bind(this);
         // this.handleBlur = this.handleBlur.bind(this);
     }
 
     handleSubmit(values){
         alert("The value you submitted are : "+ JSON.stringify(values))
-        
     }
     render(){
         const required = (val) => (val) && (val.length);
