@@ -18,7 +18,7 @@ class CommentForm extends Component{
     }
     submitForm(values){
         alert(JSON.stringify(values));
-        this.props.addComment(this.props.dishId,values.rating,values.comment,values.author);
+        this.props.postComment(this.props.dishId,values.rating,values.comment,values.author);
     }
    render(){
        const required = (val)=> val && val.length;

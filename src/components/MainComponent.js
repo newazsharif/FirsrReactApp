@@ -8,7 +8,7 @@ import Home from './HomeComponent';
 import DishDetails from './DishDetailsComponent';
 import About from './AboutUsComponent';
 import { connect } from 'react-redux';
-import {addComment, fetchComments, fetchDishes,fetchPromos} from '../redux/ActionCreators'
+import {fetchComments, fetchDishes,fetchPromos, postComment} from '../redux/ActionCreators'
 import { actions } from 'react-redux-form';
 
 //map redux state values with props.
@@ -23,11 +23,11 @@ const mapStateToProps = state => {
 
 //Dispath action to redux store.
 const mapDispatchToProps = dispatch => ({
-  addComment : (dishId,rating,comment,author) => dispatch(addComment(dishId,rating,comment,author)),
   fetchDishes : ()=>{dispatch(fetchDishes())},
   resetFeedBackForm : ()=>{dispatch(actions.reset('feedback'))},
   fetchComments : ()=> dispatch(fetchComments()),
-  fetchPromos : ()=> dispatch(fetchPromos())
+  fetchPromos : ()=> dispatch(fetchPromos()),
+  postComment : (dishId,rating,comment,author)=> dispatch(postComment(dishId,rating,comment,author))
 });
 
 //same as above code
@@ -68,7 +68,7 @@ class Main extends Component{
       return(
         <DishDetails dish = {this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.id))[0]} 
         comment = {this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.id))} 
-        addComment = {this.props.addComment}
+        postComment = {this.props.postComment}
         isLoading = {this.props.dishes.isLoading}
         errMess = {this.props.dishes.errMess}/>
       );

@@ -43,7 +43,7 @@ const RenderDish = ({dish,isLoading,errMess})=>{
     }   
 }
 
-const RenderComment = ({comments,addComment,dishId}) =>{
+const RenderComment = ({comments,postComment,dishId}) =>{
     const comment = comments.map((comment) => {
         return(
             <div key={comment.id} className="col-12">
@@ -55,7 +55,7 @@ const RenderComment = ({comments,addComment,dishId}) =>{
     return(
         <div className="ol-12 col-md-5 m-1">
             {comment}
-            <CommentForm addComment = {addComment} dishId = {dishId}/>
+            <CommentForm postComment = {postComment} dishId = {dishId}/>
         </div>
     )
 
@@ -85,7 +85,7 @@ const DishDetails = (props)=>{
                         <RenderDish dish={props.dish}
                         isLoading = {props.isLoading} 
                         errMess = {props.errMess} />
-                        <RenderComment comments={props.comment} addComment={props.addComment}  dishId={props.dish.id} /> 
+                        <RenderComment comments={props.comment} postComment={props.postComment}  dishId={props.dish.id} /> 
                     </div>
                 </div>
             </div>
