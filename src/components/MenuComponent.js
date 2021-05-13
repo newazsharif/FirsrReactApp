@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { CardImg, CardImgOverlay,Card, CardTitle, Breadcrumb, BreadcrumbItem } from "reactstrap";
+import { baseURL } from "../shared/baseURL";
+import { Loader } from "./LoaderComponent";
   
 const RenderMenu = ({dish})=>
 {
     return(
         <Card>
             <Link to = {`/menu/${dish.id}`} >
-                <CardImg src={dish.image} alt={dish.name}></CardImg>
+                <CardImg src={baseURL + dish.image} alt={dish.name}></CardImg>
                 <CardImgOverlay>
                     <CardTitle>{dish.name}</CardTitle>
                 </CardImgOverlay>
@@ -19,14 +21,25 @@ const RenderMenu = ({dish})=>
 
 
 const Menu = (props)=>
-{   
-    const menu = props.dishes.map((dish) => {
-        return(
-            <div key={dish.id} className="col-12 col-md-5 m-1 ">
-                <RenderMenu dish = {dish}></RenderMenu>
-            </div>
-        );
-    });
+{ 
+    let menu = '';
+    if(props.isLoading){
+        menu = 
+        <div className="col-12">
+           <div class="d-flex justify-content-center"><Loader /></div>
+        </div>
+    }
+    else 
+    {
+        menu =
+        props.dishes.map((dish) => {
+            return(
+                <div key={dish.id} className="col-12 col-md-5 m-1 ">
+                    <RenderMenu dish = {dish}></RenderMenu>
+                </div>
+            );
+        });
+    }
     return(
     <div className = "container">
         <div className="row">
