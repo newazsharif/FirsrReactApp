@@ -23,10 +23,19 @@ const RenderMenu = ({dish})=>
 const Menu = (props)=>
 { 
     let menu = '';
+    debugger;
     if(props.isLoading){
         menu = 
         <div className="col-12">
-           <div class="d-flex justify-content-center"><Loader /></div>
+           <div className="d-flex justify-content-center"><Loader /></div>
+        </div>
+    }
+    else if (props.errMess != null) {
+        menu = 
+        <div className="col-12"> 
+            <center>
+                <h3 className="text-danger">{props.errMess}</h3>
+            </center>
         </div>
     }
     else 

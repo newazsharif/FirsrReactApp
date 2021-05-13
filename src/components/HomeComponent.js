@@ -15,9 +15,11 @@ function RenderCard({item,isLoading,errMess}){
        )
    }
    else if (errMess != null) {
+       return(
        <div className="container">
-           <h2>{errMess}</h2>
+           <h2 className="text-danger">{errMess}</h2>
        </div>
+       )
    }
    else{
         return(

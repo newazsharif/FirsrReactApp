@@ -50,22 +50,65 @@ export const fetchDishes = ()=>(dispatch)=>{
     //     dispatch(addDishes(DISHES))
     // }, 2000);
     fetch(baseURL+'dishes')
+        .then(response => {
+            if (response.ok) {
+                return response
+            }
+            else{
+                var error = new Error('Error '+response.status+ ' ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+        error=> {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
         .then(response => response.json())
-        .then(dishes => dispatch(addDishes(dishes)));
+        .then(dishes => dispatch(addDishes(dishes)))
+        .catch(error => dispatch(dishesFailed(error.message)));
 }
 
 export const fetchComments = () => (dispatch)=>{
     fetch(baseURL+'comments')
+        .then(response => {
+            if (response.ok) {
+                return response
+            }
+            else{
+                var error = new Error('Error '+response.status + ' '+ response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },error=>{
+            var errormess = new Error(error.message);
+            throw errormess;
+        })
         .then(response => response.json())
         .then(comments => dispatch(addComments(comments)))
+        .catch(error => dispatch(failedComments(error.message)));
 }
 
 export const fetchPromos = () => (dispatch)=>{
     promotinosLoading();
 
     fetch(baseURL+'promotions')
+        .then(response => {
+            if (response.ok) {
+                return response
+            }
+            else{
+                var error = new Error('Error '+response.status + ' '+ response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },error=>{
+            var errormess = new Error(error.message);
+            throw errormess;
+        })
         .then(response => response.json())
         .then(promotions => dispatch(addPromotions(promotions)))
+        .catch(error=> dispatch(failedPromos(error.message)))
 }
 
 export const dishesLoading = ()=>({
